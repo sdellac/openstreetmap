@@ -10,6 +10,10 @@ class Car(Point):
     def affichage(self):
         return '('+str(self.x)+';'+str(self.y)+';'+str(self.id)+')'
 
+    def refresh(self,x,y):
+        self.x=x
+        self.y=y
+
 def print_mac():
     mac = get_mac()
     print(mac)
@@ -30,6 +34,8 @@ def payload(car):
 #p=Point(2,3)
 
 #c=Car(2,3,get_mac())
+#print(c.affichage())
+#c.modif(4,5)
 #print(c.affichage())
 #print(test())
 #print(payloadtest())
