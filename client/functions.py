@@ -18,7 +18,13 @@ def payloadtest():
    return '{ \"client\":'+'\n'+'{\"ID\" : \"value\",'+'\n'+'\"Position\" :'+'\n'+'{\"lat\" : x'+'\n'+'\"lon\" : y}'+'\n'+'}'+'\n'+'\"isServer\" : bool'+'\n'+'}'
 
 def payload(car):
-    return'{ \"client\":'+'\n'+'{\"ID\" : '+str(car.id)+','+'\n'+'\"Position\" :'+'\n'+'{\"lat\" : '+str(car.x)+''+'\n'+'\"lon\" : '+str(car.y)+'}'+'\n'+'}'+'\n'+'\"isServer\" : 0'+'\n'+'}' 
+    return'{ \"client\":{\"id\":'+str(car.id)+',\"position\":{\"lat\":'+str(car.x)+',\"lon\":'+str(car.y)+'}}}' 
+
+
+
+#def payload2(car):
+#    return{ "client":{"ID" : str(car.id),"Position" :{"lat" : str(car.x),"lon" : '+str(car.y)+'}'+'\n'+'}'+'\n'+'\"isServer\" : 0'+'\n'+'}
+
 
 #print_mac()
 #p=Point(2,3)

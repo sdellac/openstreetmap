@@ -1,28 +1,17 @@
 from functions import *
-import httplib
+import json
+import requests
 
-def printText(txt):
-    lines = txt.split('\n')
-    for line in lines:
-        print line.strip()
+url = 'http://localhost:8080/'
 
-httpServ = httplib.HTTPConnection("127.0.0.1", 80)
-httpServ.connect()
+c=Car(2,16,get_mac())
 
-httpServ.request('GET', "/test.html")
 
-response = httpServ.getresponse()
-if response.status == httplib.OK:
-    print "Output from HTML request"
-    printText (response.read())
+payload = json.loads(payload(c))
+headers = {'content-type': 'application/json'}
+r = requests.post(url, data = json.dumps(payload), headers = headers)
 
-httpServ.request('GET', '/cgi_form.cgi?name=Brad&quote=Testing.')
 
-response = httpServ.getresponse()
-if response.status == httplib.OK:
-    print "Output from CGI request"
-    printText (response.read())
 
-httpServ.close()
 
 
