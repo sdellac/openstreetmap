@@ -12,7 +12,8 @@ class Car(Point):
 
     def refresh(self,x,y):
         self.x=x
-        self.y=y
+	self.y=y
+
 
 def print_mac():
     mac = get_mac()
@@ -21,25 +22,11 @@ def print_mac():
 def payloadtest():
    return '{ \"client\":'+'\n'+'{\"ID\" : \"value\",'+'\n'+'\"Position\" :'+'\n'+'{\"lat\" : x'+'\n'+'\"lon\" : y}'+'\n'+'}'+'\n'+'\"isServer\" : bool'+'\n'+'}'
 
-def payload(car):
+def get_payload(car):
     return'{ \"client\":{\"id\":'+str(car.id)+',\"position\":{\"lat\":'+str(car.x)+',\"lon\":'+str(car.y)+'}}}' 
 
 
 
-#def payload2(car):
-#    return{ "client":{"ID" : str(car.id),"Position" :{"lat" : str(car.x),"lon" : '+str(car.y)+'}'+'\n'+'}'+'\n'+'\"isServer\" : 0'+'\n'+'}
-
-
-#print_mac()
-#p=Point(2,3)
-
-#c=Car(2,3,get_mac())
-#print(c.affichage())
-#c.modif(4,5)
-#print(c.affichage())
-#print(test())
-#print(payloadtest())
-#print(payload(c))
 
 
 
