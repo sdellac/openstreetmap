@@ -5,9 +5,9 @@ import linecache
 import time
 import random
 
-
 defaultPort = 8080
 
+#Envoi la position de car a l'url indiquee
 def postPosition(url, car):
 	payload = json.loads(get_payload(car))
 	headers = {'content-type': 'application/json'}
@@ -23,27 +23,27 @@ def postPosition(url, car):
 		print e
 
 
+#Simule un deplacement vers (dest_x, dest_y). Envoi la position au serveur tous les timeToPost.
+def move_to(url, car, dest_x, dest_y, timeToPost):
+        while car.arrived is False:
+                car.move(dest_x, dest_y, timeToPost)
+                print (str(car.x)+' '+str(car.y))
+                postPosition(url, car)
+                time.sleep(timeToPost)
+        print (str(dest_x)+' '+str(dest_y)+' <------------------- REACHED\n')
+
+#Simule un deplacement selon la longitude vers dest_y. Envoi la position au serveur tous les timeToPost.
 def straight_move(url, car, dest_y, timeToPost):
-        for i in range(car.y,dest_y): 
-              car.move(car.x, i, timeToPost)
-              print (str(car.x)+' '+str(car.y))
-              postPosition(url, car)
-              time.sleep(timeToPost)
+        move_to(url, car, car.x, dest_y, timeToPost)
               
-        
+
+#Simule cpt deplacements aleatoire. Envoi la position au serveur tous les timeToPost.     
 def random_move (url, car, cpt, timeToPost):
         while cpt != 0:
                 dest_x = random.randrange(20)
                 dest_y = random.randrange(20)
                 print ('------------- FROM '+str(car.x)+' '+str(car.y)+' Going to '+str(dest_x)+' '+str(dest_y)+'---------------')
-
-                while car.arrived is False:
-                        car.move(dest_x, dest_y, timeToPost)
-                        print (str(car.x)+' '+str(car.y))
-                        postPosition(url, car)
-                        time.sleep(timeToPost)
-
-                print (str(dest_x)+' '+str(dest_y)+' <------------------- REACHED\n')
+                move_to(url, car, dest_x, dest_y, timeToPost)
                 car.arrived = False
                 cpt -= 1
 
@@ -56,7 +56,7 @@ c=Car(1,10,get_mac(),2.5)
 
 #straight_move(serverToContact, c, 20, 1)
 random_move(serverToContact, c, 2, 1)
-
+#move_to(serverToContact, c, 15, 19, 1)
 
 print ('fin du programme')
 

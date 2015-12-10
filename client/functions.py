@@ -17,6 +17,7 @@ class Car(Point):
         self.x=x
 	self.y=y
 
+    #Deplace la voiture de v*time lorsque celle ci a pour destination le point (destX, destY)
     def move(self, destX, destY, time):
         distX = destX-self.x
         distY = destY-self.y
