@@ -52,11 +52,11 @@ defaultServer = linecache.getline('./client.conf', 1).strip()
 backupServer = linecache.getline('./client.conf', 2).strip()
 
 serverToContact = defaultServer
-c=Car(1,10,get_mac(),2.5)
+c=Car(23,9,get_mac(),3)
 
 #straight_move(serverToContact, c, 20, 1)
-random_move(serverToContact, c, 2, 1)
-#move_to(serverToContact, c, 15, 19, 1)
+#random_move(serverToContact, c, 2, 1)
+move_to(serverToContact, c, 2, 12, 1)
 
 print ('fin du programme')
 

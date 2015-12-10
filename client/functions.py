@@ -21,21 +21,31 @@ class Car(Point):
     def move(self, destX, destY, time):
         distX = destX-self.x
         distY = destY-self.y
+
+        if distX == 0:
+            vx = 0
+        else:
+            vx = self.v/sqrt((distY/distX)*(distY/distX) + 1)
+            
+        if distY == 0:
+            vy = 0
+        else:
+            vy = self.v/sqrt((distX/distY)*(distX/distY) + 1)
         
-        if distX > self.v*time:
-            self.x += self.v*time
-        elif abs(distX) <= self.v*time:
+        if distX > vx*time:
+            self.x += vx*time
+        elif abs(distX) <= vx*time:
             self.x = destX
         else:
-            self.x -= self.v*time
+            self.x -= vx*time
 
 
-        if distY > self.v*time:
-            self.y += self.v*time
-        elif abs(distY) <= self.v*time:
+        if distY > vy*time:
+            self.y += vy*time
+        elif abs(distY) <= vy*time:
             self.y = destY
         else:
-            self.y -= self.v*time
+            self.y -= vy*time
         
         if self.x == destX and self.y == destY:
             self.arrived = True
