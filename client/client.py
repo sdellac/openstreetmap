@@ -1,4 +1,5 @@
 from functions import *
+from pyroutelib2.route import *
 import json
 import requests
 import linecache
@@ -52,11 +53,29 @@ defaultServer = linecache.getline('./client.conf', 1).strip()
 backupServer = linecache.getline('./client.conf', 2).strip()
 
 serverToContact = defaultServer
-c=Car(23,9,get_mac(),3)
+c=Car(52.55,-1.8,get_mac(),0.01)
+
+data = LoadOsm("cycle")
+
+node1 = data.findNode(52.552394,-1.818763)
+node2 = data.findNode(52.563368,-1.818291)
+
+
+router = Router(data)
+route = router.doRoute(node1, node2)
+
+result, route = router.doRoute(node1, node2)
+ # list the lat/long
+for i in route:
+        node = data.rnodes[i]
+        print('NEXT DESTINATION :'+ str(node[0])+' '+str(node[1]))
+        move_to(serverToContact, c, node[0], node[1], 1)
+else:
+        print("Failed (%s)" % result)
 
 #straight_move(serverToContact, c, 20, 1)
 #random_move(serverToContact, c, 2, 1)
-move_to(serverToContact, c, 2, 12, 1)
+#move_to(serverToContact, c, 2, 12, 1)
 
 print ('fin du programme')
 
