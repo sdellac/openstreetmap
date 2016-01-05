@@ -19,7 +19,6 @@
         (function () {
             var me = <%- me %>;
             var servers = <%- JSON.stringify(servers) %>;
-
             var zone = servers[me].zone;
             var bounds = L.latLngBounds([[zone.minlat, zone.minlon], [zone.maxlat, zone.maxlon]]);
 

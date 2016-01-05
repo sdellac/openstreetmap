@@ -33,18 +33,19 @@ var argv = require('yargs')
 
 // Classes definitions
 class Zone {
-	constructor() {
-		this.minlat = 0;
-		this.maxlat = 0;
-		this.minlon = 0;
-		this.maxlon = 0;
+	constructor(obj) {
+		this.minlat = obj["minlat"];
+		this.maxlat = obj["maxlat"];
+		this.minlon = obj["minlon"];
+		this.maxlon = obj["maxlon"];
 	}
 }
 
 class Server {
-	constructor() {
-		this.host = "";
-		this.zone = new Zone();
+	constructor(obj, color) {
+		this.host = obj["host"];
+		this.zone = new Zone(obj["zone"]);
+        this.color = color;
 	}
 }
 
@@ -95,7 +96,7 @@ var i = 0;
 var servers = JSON.parse(fs.readFileSync('server.conf', 'utf8'))['servers'].map(function (obj) {
 	return new Server(obj, colors[i++]);
 });
-//console.log(servers);
+console.log(servers);
 
 var url = require('url');
 var util = require('util');
