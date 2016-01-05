@@ -1,54 +1,81 @@
 from functions import *
+from pyroutelib2.route import *
 import json
 import requests
 import linecache
+import time
+import random
 
+defaultPort = 8080
 
+#Envoi la position de car a l'url indiquee
 def postPosition(url, car):
 	payload = json.loads(get_payload(car))
 	headers = {'content-type': 'application/json'}
-	s=requests.Session()
-	r = None
 	try:
-		r = s.post(url, data = json.dumps(payload), headers = headers)
+		r = requests.post(url, data = json.dumps(payload), headers = headers, allow_redirects=False)
+                if r.status_code == 303:
+                        print (r.text)
+                        newUrl = 'http://'+r.headers['location']+':'+str(defaultPort)
+                        #postPosition(newUrl, car)
+                else:
+                        print(r.text)
 	except (requests.exceptions.HTTPError, requests.exceptions.ConnectionError) as e:
-		print ("Failed to connect to "+url)
 		print e
-	return r
 
+
+#Simule un deplacement vers (dest_x, dest_y). Envoi la position au serveur tous les timeToPost.
+def move_to(url, car, dest_x, dest_y, timeToPost):
+        while car.arrived is False:
+                car.move(dest_x, dest_y, timeToPost)
+                print (str(car.x)+' '+str(car.y))
+                postPosition(url, car)
+                time.sleep(timeToPost)
+        print (str(dest_x)+' '+str(dest_y)+' <------------------- REACHED\n')
+
+#Simule un deplacement selon la longitude vers dest_y. Envoi la position au serveur tous les timeToPost.
+def straight_move(url, car, dest_y, timeToPost):
+        move_to(url, car, car.x, dest_y, timeToPost)
+              
+
+#Simule cpt deplacements aleatoire. Envoi la position au serveur tous les timeToPost.     
+def random_move (url, car, cpt, timeToPost):
+        while cpt != 0:
+                dest_x = random.randrange(20)
+                dest_y = random.randrange(20)
+                print ('------------- FROM '+str(car.x)+' '+str(car.y)+' Going to '+str(dest_x)+' '+str(dest_y)+'---------------')
+                move_to(url, car, dest_x, dest_y, timeToPost)
+                car.arrived = False
+                cpt -= 1
 
 #Main
 defaultServer = linecache.getline('./client.conf', 1).strip()
 backupServer = linecache.getline('./client.conf', 2).strip()
-defaultPort = '8080'
 
 serverToContact = defaultServer
-c=Car(1,1,get_mac())
+c=Car(52.55,-1.8,get_mac(),0.01)
 
-#Premiere connection determinant l'utilisation du serveur de secours
-res = postPosition(serverToContact, c)
-if res is None:
-		serverToContact = backupServer
-		print('BACKUP SERVER '+serverToContact)
-		res = postPosition(serverToContact, c)
+data = LoadOsm("cycle")
 
-#"Deplacement de la voiture"
-for i in range(5,15) :
-	c.refresh(1, i)
-	res = postPosition(serverToContact, c)
+node1 = data.findNode(52.552394,-1.818763)
+node2 = data.findNode(52.563368,-1.818291)
 
-	if res is None:
-		break
 
-	print ('pour i = '+str(i))
-	if "OK" in res.text: 
-    		print('OK')
-	elif "Not Found" in res.text:
-    		print('Not Found')
-	else:
-    		serverToContact = 'http://'+res.text.replace("Cannot GET /","").strip()+':'+defaultPort+'/'
-		print ('New server to contact: '+serverToContact)
+router = Router(data)
+route = router.doRoute(node1, node2)
 
+result, route = router.doRoute(node1, node2)
+ # list the lat/long
+for i in route:
+        node = data.rnodes[i]
+        print('NEXT DESTINATION :'+ str(node[0])+' '+str(node[1]))
+        move_to(serverToContact, c, node[0], node[1], 1)
+else:
+        print("Failed (%s)" % result)
+
+#straight_move(serverToContact, c, 20, 1)
+#random_move(serverToContact, c, 2, 1)
+#move_to(serverToContact, c, 2, 12, 1)
 
 print ('fin du programme')
 
