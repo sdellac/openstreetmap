@@ -54,9 +54,9 @@
             socket.on('update', function (data) {
                 console.log(data);
                 if (markers[data.id] === undefined) {
-                    markers[data.id] = L.marker([data.lat, data.lon]).addTo(map);
+                    markers[data.id] = L.marker([data.position.lat, data.position.lon]).addTo(map);
                 } else {
-                    markers[data.id].setLatLng([data.lat, data.lon]);
+                    markers[data.id].setLatLng([data.position.lat, data.position.lon]);
                 }
             });
         })()

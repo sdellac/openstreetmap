@@ -50,11 +50,11 @@ class Server {
 }
 
 class Client {
-	constructor(config) {
-		this.id = "";
+	constructor(obj) {
+		this.id = obj["id"];
         this.position = {
-            lat: 0,
-            lon: 0
+            lat: obj["position"]["lat"],
+            lon: obj["position"]["lon"]
         };
 	}
 
@@ -96,7 +96,7 @@ var i = 0;
 var servers = JSON.parse(fs.readFileSync('server.conf', 'utf8'))['servers'].map(function (obj) {
 	return new Server(obj, colors[i++]);
 });
-console.log(servers);
+//console.log(servers);
 
 var url = require('url');
 var util = require('util');
@@ -141,9 +141,9 @@ app.get('/', function (req, res) {
 app.post('/', function (req, res) {
     console.log(util.inspect(req.body));
 	let client, hservers;
-	try {
 		client = new Client(req.body['client']);
         hservers = findServersFor(client);
+	try {
 	} catch(err) {
 		res.sendStatus(400); // Bad Request
 		return;
