@@ -10,9 +10,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.14.1",
-    "express": "^4.13.3",
-    "winston": "^2.1.1",
-    "yargs": "^3.30.0"
+    "body-parser": "latest",
+    "express": "latest",
+    "winston": "latest",
+    "yargs": "latest",
+    "ejs": "latest",
+    "socket.io": "latest",
+    "request": "latest",
+    "lodash": "latest"
   }
 }
