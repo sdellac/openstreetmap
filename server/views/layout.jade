@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    title OSM
+    link(rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css')
+    link(rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css')
+    link(rel='stylesheet' href='/stylesheets/style.css')
+  body
+    block content
+    script(src='//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.7/socket.io.min.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js')
+    script.
+      var servers = !{JSON.stringify(servers)};
+      var me = !{me};
+      var port = !{port};
+    script(src='/javascripts/script.js')

@@ -1,0 +1,20 @@
+{
+	"servers": [{
+		"zone": {
+			"minlat": 44.7,
+			"maxlat": 44.85,
+			"minlon": -0.8,
+			"maxlon": -0.5
+		},
+		"host":"127.0.0.1:8080"
+	},
+	{
+		"zone":{
+			"minlat": 44.8,
+			"maxlat": 44.95,
+			"minlon": -0.7,
+			"maxlon": -0.4
+		},
+		"host":"127.0.0.1:8081"
+	}]
+}
