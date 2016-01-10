@@ -55,8 +55,9 @@ def distance_on_unit_sphere(coord1, coord2):
     distance = arc*6371
     return distance
 
-def getdistance(coordinates):
+def getdtot(coordinates):
         i = 0
+        #distances contains every distance between nodes
         distances = []
         dtot = 0
         while (i < len(coordinates)-1):
@@ -64,8 +65,21 @@ def getdistance(coordinates):
             dtot = dtot + d
             i = i+1
             distances.append(d)
-        print dtot
+        #print dtot
+        return dtot
         
+def gettravel(coordinates):
+        i = 0
+        #travel contains the length traveled at each node
+        travel = []
+        traveltot = 0
+        while (i < len(coordinates)-1):
+            d = distance_on_unit_sphere(coordinates[i], coordinates[i+1])
+            traveltot = traveltot + d
+            i = i+1
+            travel.append(traveltot)
+        return travel
+
 #Main
    
 #coordinates: array with list of coordinates (position of the different nodes)
@@ -76,5 +90,5 @@ B = [52.563368, -1.818291]
 
 distance_on_unit_sphere(A,B)
 
-getdistance(coordinates)
+getdtot(coordinates)
 
