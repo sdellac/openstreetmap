@@ -30,7 +30,7 @@
 
     var markers = {};
 
-    var socket = io('http://127.0.0.1:'+port);
+    var socket = io('http://' + location.host);
     socket.on('update', function (data) {
         console.log(data);
         if (markers[data.id] === undefined) {
