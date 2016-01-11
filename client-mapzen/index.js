@@ -50,9 +50,11 @@ var route;
 var loop = MainLoop.stop();
 var coords;
 
+var server = "37.187.116.52:60000";
+
 var sync = function() {
     superagent
-        .post('http://37.187.116.52:60000/')
+        .post('http://' + server + '/')
         .send({
             client: {
                 id: "YOLO",
@@ -63,9 +65,9 @@ var sync = function() {
             }
         })
         .end(function(err, res){
-            if (err || !res.ok) {
-                alert('Oh no! error');
-            } else {
+            console.log(err);
+            if (res.status == 303) {
+                server = res.header['Location'];
             }
         });
 };
