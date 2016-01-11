@@ -13,12 +13,13 @@ defaultPort = 60000
 def postPosition(url, car):
 	payload = json.loads(get_payload2(car))
 	headers = {'content-type': 'application/json'}
+	#print ("PAYLOAD" + json.dumps(payload))
 	try:
 		r = requests.post(url, data = json.dumps(payload), headers = headers, allow_redirects=False)
                 print('Server response: '+ r.text)
                 if r.status_code == 303:
                         newUrl = 'http://'+r.headers['location']+':'+str(defaultPort)
-                        #postPosition(newUrl, car)
+                        #postPostion(newUrl, car)
 	except (requests.exceptions.HTTPError, requests.exceptions.ConnectionError) as e:
 		print e
 
@@ -44,9 +45,9 @@ def move_to(url, car, dest_x, dest_y, timeToPost):
         while car.arrived is False:
                 time.sleep(timeToPost)
                 car.move(dest_x, dest_y, timeToPost)
-                print ('Send position ' +str(car.x)+' '+str(car.y))
+                #print ('Send position ' +str(car.x)+' '+str(car.y))
                 postPosition(url, car)
-        print (str(dest_x)+' '+str(dest_y)+' <------------------- REACHED\n')
+        print (str(dest_x)+' '+str(dest_y)+' <------------------- REACHED\n\n')
 
 
 def move_car (car, start_x, start_y, end_x, end_y):
@@ -70,10 +71,10 @@ def move_car (car, start_x, start_y, end_x, end_y):
                         print ('Current position: ' + str(car.x)+' '+str(car.y))
                         print('Next destination: '+ str(node[0])+' '+str(node[1]))
                         print('MOVE')
-                        move_to(serverToContact, car, node[0], node[1], 0.2)
-                        #pourcentage = dtot - (dtot - distance_on_unit_sphere(coords[j], coords[len(coords)-1]) / dtot)
-                        pourcentage = dtot - (dtot - travel[j-1] / dtot)
-                        print('COMPLETION DU PARCOURS : '+ str(pourcentage)*100 + ' %')
+                        move_to(serverToContact, car, node[0], node[1], 1)
+			pourcentage = travel[j-1] / dtot *100
+			if (j > 0):
+				print('COMPLETION DU PARCOURS : '+ str(pourcentage) + ' %')
                         car.arrived = False
                         j = j+1
         else:
@@ -106,9 +107,11 @@ defaultServer = linecache.getline('./client.conf', 1).strip()
 backupServer = linecache.getline('./client.conf', 2).strip()
 
 serverToContact = defaultServer
-voiture = Car(52.55,-1.8,54,0.0001)
+voiture = Car(52.55,-1.8,54,0.0003)
 
-move_car(voiture, 44.82612, -0.57317, 44.81595, -0.58166)
+#move_car(voiture, 52.552394, -1.818763, 52.563368, -1.818291)
+
+move_car(voiture, 44.837442, -0.574733, 44.832543, -0.575012)
 
 print ('fin du programme')
 

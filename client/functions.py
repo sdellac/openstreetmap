@@ -72,19 +72,18 @@ class Object:
 def get_payload2(car):
 
     payload = Object()
-    payload.id = car.id
-    payload.position = Object()
-    payload.position.lat = car.x
-    payload.position.lon = car.y
+    payload.client = Object()
+    payload.client.id = str(car.id)
+    payload.client.position = Object()
+    payload.client.position.lat = car.x
+    payload.client.position.lon = car.y
     return payload.to_JSON(car)
 
 car=Car(52.55,-1.8,54,0.0001)
 print get_payload2(car)
     
-
-
-
-
+#commande correcte
+#curl -i -H "Content-Type: application/json" -X POST -d '{"client": {"id" : "5", "position" :{"lat" : 44.837442, "lon": -0.574733}}}' http://37.187.116.52:60000
 
 
 
