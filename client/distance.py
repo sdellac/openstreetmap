@@ -78,17 +78,31 @@ def gettravel(coordinates):
             traveltot = traveltot + d
             i = i+1
             travel.append(traveltot)
+	    #print traveltot
         return travel
 
 #Main
    
 #coordinates: array with list of coordinates (position of the different nodes)
-coordinates = listpos(52.552394, -1.818763, 52.563368, -1.818291)
+#coordinates = listpos(52.552394, -1.818763, 52.563368, -1.818291)
+#coordinates2 = listpos(51.540870, -0.196478, 51.537447, -0.189236)
+#coordinates3 = listpos(48.840568, 2.304135, 48.843689, 2.309586)
+#coordinates4 = listpos(44.837442, -0.574733, 44.832543, -0.575012)
+
 
 A = [52.552394, -1.818763]
 B = [52.563368, -1.818291]
 
-distance_on_unit_sphere(A,B)
+C = [32.654986, -78,549314]
+D = [37.215646, -3,154951]
 
-getdtot(coordinates)
+E = [44.8261265, -0.5731225]
+F = [44.8011175, -0.5946964]
+
+#distance_on_unit_sphere(A,F)
+#print distance_on_unit_sphere(C,A)
+
+#getdtot(coordinates)
+
+#print gettravel(coordinates4)
 

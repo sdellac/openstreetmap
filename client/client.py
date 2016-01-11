@@ -6,7 +6,7 @@ import linecache
 import time
 import random
 
-defaultPort = 8080
+defaultPort = 8000
 
 #Envoi la position de car a l'url indiquee
 def postPosition(url, car):

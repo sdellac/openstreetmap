@@ -1,6 +1,7 @@
 from uuid import getnode as get_mac
 from math import *
 from point import *
+import json
 
 class Car(Point):
 
@@ -52,18 +53,26 @@ class Car(Point):
         
 
 
-def print_mac():
-    mac = get_mac()
-    print(mac)
-
-def payloadtest():
-   return '{ \"client\":'+'\n'+'{\"ID\" : \"value\",'+'\n'+'\"Position\" :'+'\n'+'{\"lat\" : x'+'\n'+'\"lon\" : y}'+'\n'+'}'+'\n'+'\"isServer\" : bool'+'\n'+'}'
+class Object:
+    def to_JSON(self, car):
+        return json.dumps(self, default=lambda o: o.__dict__, 
+                          sort_keys=True, indent=4)
 
 def get_payload(car):
-    return'{\"client\":{\"id\":'+str(car.id)+',\"position\":{\"lat\":'+str(car.x)+',\"lon\":'+str(car.y)+'}}}' 
 
+    payload = Object()
+    payload.client = Object()
+    payload.client.id = str(car.id)
+    payload.client.position = Object()
+    payload.client.position.lat = car.x
+    payload.client.position.lon = car.y
+    return payload.to_JSON(car)
 
-
+#car=Car(52.55,-1.8,54,0.0001)
+#print get_payload2(car)
+    
+#commande correcte
+#curl -i -H "Content-Type: application/json" -X POST -d '{"client": {"id" : "5", "position" :{"lat" : 44.837442, "lon": -0.574733}}}' http://37.187.116.52:60000
 
 
 
