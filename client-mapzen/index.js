@@ -55,6 +55,7 @@ var sync = function() {
         .post('http://37.187.116.52:60000/')
         .send({
             client: {
+                id: "YOLO",
                 position: {
                     lat: coords[0],
                     lon: coords[1]
