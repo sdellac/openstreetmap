@@ -89,6 +89,7 @@ def gettravel(coordinates):
 #coordinates3 = listpos(48.840568, 2.304135, 48.843689, 2.309586)
 #coordinates4 = listpos(44.837442, -0.574733, 44.832543, -0.575012)
 
+
 A = [52.552394, -1.818763]
 B = [52.563368, -1.818291]
 
@@ -98,10 +99,10 @@ D = [37.215646, -3,154951]
 E = [44.8261265, -0.5731225]
 F = [44.8011175, -0.5946964]
 
-#distance_on_unit_sphere(A,B)
+#distance_on_unit_sphere(A,F)
 #print distance_on_unit_sphere(C,A)
 
 #getdtot(coordinates)
 
-#gettravel(coordinates4)
+#print gettravel(coordinates4)
 
