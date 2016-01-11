@@ -1,6 +1,7 @@
 from uuid import getnode as get_mac
 from math import *
 from point import *
+import json
 
 class Car(Point):
 
@@ -57,10 +58,30 @@ def print_mac():
     print(mac)
 
 def payloadtest():
-   return '{ \"client\":'+'\n'+'{\"ID\" : \"value\",'+'\n'+'\"Position\" :'+'\n'+'{\"lat\" : x'+'\n'+'\"lon\" : y}'+'\n'+'}'+'\n'+'\"isServer\" : bool'+'\n'+'}'
+    return '{ \"client\":'+'\n'+'{\"ID\" : \"value\",'+'\n'+'\"Position\" :'+'\n'+'{\"lat\" : x'+'\n'+'\"lon\" : y}'+'\n'+'}'+'\n'+'\"isServer\" : bool'+'\n'+'}'
 
 def get_payload(car):
     return'{\"client\":{\"id\":'+str(car.id)+',\"position\":{\"lat\":'+str(car.x)+',\"lon\":'+str(car.y)+'}}}' 
+
+
+class Object:
+    def to_JSON(self, car):
+        return json.dumps(self, default=lambda o: o.__dict__, 
+                          sort_keys=True, indent=4)
+
+def get_payload2(car):
+
+    payload = Object()
+    payload.id = car.id
+    payload.position = Object()
+    payload.position.lat = car.x
+    payload.position.lon = car.y
+    return payload.to_JSON(car)
+
+car=Car(52.55,-1.8,54,0.0001)
+print get_payload2(car)
+    
+
 
 
 

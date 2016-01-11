@@ -7,11 +7,11 @@ import linecache
 import time
 import random
 
-defaultPort = 60001
+defaultPort = 60000
 
 #Envoi la position de car a l'url indiquee
 def postPosition(url, car):
-	payload = json.loads(get_payload(car))
+	payload = json.loads(get_payload2(car))
 	headers = {'content-type': 'application/json'}
 	try:
 		r = requests.post(url, data = json.dumps(payload), headers = headers, allow_redirects=False)
@@ -108,7 +108,7 @@ backupServer = linecache.getline('./client.conf', 2).strip()
 serverToContact = defaultServer
 voiture = Car(52.55,-1.8,54,0.0001)
 
-move_car(voiture, 52.552394, -1.818763, 52.563368, -1.818291)
+move_car(voiture, 44.82612, -0.57317, 44.81595, -0.58166)
 
 print ('fin du programme')
 
