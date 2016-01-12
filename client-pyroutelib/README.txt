@@ -1,8 +1,8 @@
 
-Installer OSMAPI:
+Installer osmapi:
 pip install osmapi
 
-Installer requests
+Installer requests:
 pip install requests
 
 
