@@ -36,28 +36,28 @@
     socket.on('init', function (clients) {
         for (var prop in clients) {
             var data = clients[prop];
-            markers[data.id] = L.marker([data.position.lat, data.position.lon], {title: data.id})
+            markers[data.ID] = L.marker([data.Position.lat, data.Position.lon], {title: data.ID})
                 .bindPopup(L.popup({closeButton: false, minWidth: 30})
-                    .setContent(data.id))
+                    .setContent(data.ID))
                 .addTo(map);
         }
     });
 
     socket.on('update', function (data) {
-        if (markers[data.id] === undefined) {
-            markers[data.id] = L.marker([data.position.lat, data.position.lon], {title: data.id})
+        if (markers[data.ID] === undefined) {
+            markers[data.ID] = L.marker([data.Position.lat, data.Position.lon], {title: data.ID})
                 .bindPopup(L.popup({closeButton: false, minWidth: 30})
-                    .setContent(data.id))
+                    .setContent(data.ID))
                 .addTo(map);
         } else {
-            markers[data.id].setLatLng([data.position.lat, data.position.lon]);
+            markers[data.ID].setLatLng([data.Position.lat, data.Position.lon]);
         }
     });
 
     socket.on('remove', function (data) {
-        if (markers[data.id] !== undefined) {
-            map.removeLayer(markers[data.id]);
-            delete markers[data.id];
+        if (markers[data.ID] !== undefined) {
+            map.removeLayer(markers[data.ID]);
+            delete markers[data.ID];
         }
     });
 })()

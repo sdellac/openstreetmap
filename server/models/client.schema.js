@@ -2,10 +2,10 @@ var Joi = require('joi');
  
 var schema = Joi.object({
     client: Joi.object({
-        id: Joi.string().required(),
-        position: Joi.object({
-            lat: Joi.number().required(),
-            lon: Joi.number().required()
+        ID: Joi.string().required(),
+        Position: Joi.object({
+            lat: Joi.number().min(-90).max(90).required(),
+            lon: Joi.number().min(-180).max(180).required()
         }).required()
     }).required(),
     isServer: Joi.boolean()

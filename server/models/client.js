@@ -1,8 +1,8 @@
 var _ = require('lodash');
 
 function Client(obj) {
-    this.id = "";
-    this.position = {
+    this.ID = "";
+    this.Position = {
         lat: 0,
         lon: 0
     }
@@ -10,10 +10,10 @@ function Client(obj) {
 }
 
 Client.prototype.in = function(zone) {
-    return this.position.lat >= zone.minlat &&
-        this.position.lat < zone.maxlat &&
-        this.position.lon >= zone.minlon &&
-        this.position.lon < zone.maxlon;
+    return this.Position.lat >= zone.minlat &&
+        this.Position.lat < zone.maxlat &&
+        this.Position.lon >= zone.minlon &&
+        this.Position.lon < zone.maxlon;
 }
 
 module.exports = Client;

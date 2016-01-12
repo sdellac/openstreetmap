@@ -5,10 +5,10 @@ var schema = Joi.object({
         Joi.object({
             host: Joi.string().regex(/[^\:]+(:[0-9]+)?/).required(),
             zone: Joi.object({
-                minlat: Joi.number().required(),
-                maxlat: Joi.number().required(),
-                minlon: Joi.number().required(),
-                maxlon: Joi.number().required()
+                minlat: Joi.number().min(-90).max(90).required(),
+                maxlat: Joi.number().min(-90).max(90).required(),
+                minlon: Joi.number().min(-180).max(180).required(),
+                maxlon: Joi.number().min(-180).max(180).required()
             }).required()
         }).required()
     ).required()

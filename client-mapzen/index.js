@@ -54,7 +54,7 @@ var server = "37.187.116.52:60000";
 
 var sync = function() {
     superagent
-        .post('http://' + server + '/')
+        .post('http://127.0.0.1:1337/' + server + '/')
         .send({
             client: {
                 id: "YOLO",
@@ -65,16 +65,22 @@ var sync = function() {
             }
         })
         .end(function(err, res){
-            console.log(err);
-            if (res.status == 303) {
-                server = res.header['Location'];
+            if (res.req.url !== res.xhr.responseURL) {
+                server = res.xhr.responseURL.substring(res.req.url.length, res.xhr.responseURL.length);
             }
         });
 };
 
 var syncInt;
+var circle = L.circle(coords, 5, {
+    color: 'blue',
+    fillColor: '#03f',
+    fillOpacity: 0.5
+});
 
 controls.on('routeselected', function(e) {
+    clearInterval(syncInt);
+    map.removeLayer(circle);
     loop.stop();
     route = e.route;
 
@@ -98,7 +104,7 @@ controls.on('routeselected', function(e) {
         route.coordinates[j+1][0]-route.coordinates[j][0],
         route.coordinates[j+1][1]-route.coordinates[j][1]
     ];
-    var circle = L.circle(coords, 5, {
+    circle = L.circle(coords, 5, {
         color: 'blue',
         fillColor: '#03f',
         fillOpacity: 0.5
@@ -134,13 +140,21 @@ controls.on('routeselected', function(e) {
         }
     }
 
-    var update = function(delta) { 
+    var update = function(delta) {
         remaining_distance -= (delta/1000)*speed;
         coords[0] = start[0] + (distance - remaining_distance) * vect[0] / distance;
         coords[1] = start[1] + (distance - remaining_distance) * vect[1] / distance;
+        if (isNaN(coords[0])) {
+            clearInterval(syncInt);
+            loop.stop();
+        }
     }
 
     var draw = function() {
+        if (isNaN(coords[0])) {
+            clearInterval(syncInt);
+            loop.stop();
+        }
         circle.setLatLng(coords, coords);
     }
 
