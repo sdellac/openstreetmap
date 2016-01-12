@@ -1,6 +1,9 @@
 
-Installer OSMAPI:
+Installer osmapi:
 pip install osmapi
+
+Installer requests:
+pip install requests
 
 
 Lancer le client:
