@@ -159,5 +159,5 @@ controls.on('routeselected', function(e) {
     }
 
     loop = MainLoop.setBegin(begin).setUpdate(update).setDraw(draw).start();
-    syncInt = setInterval(sync, 10000);
+    syncInt = setInterval(sync, 1000);
 });

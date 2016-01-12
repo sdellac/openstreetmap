@@ -55,7 +55,7 @@
     });
 
     socket.on('remove', function (data) {
-        if (markers[data.ID] !== undefined) {
+        if (data !== undefined && markers[data.ID] !== undefined) {
             map.removeLayer(markers[data.ID]);
             delete markers[data.ID];
         }
