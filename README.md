@@ -11,13 +11,13 @@ npm install
 ### Run the server
 
 ```
-node server.js -i [id]
+./bin/www -i [id]
 ```
 
 *The `id` corresponds to the server index in the configuration file `server.conf`.*
 
-### Pour tester
+### Test
 
 ```
-curl -i -H "Content-Type: application/json" -X POST -d '{"client":{"id":5,"position":{"lat":2,"lon":16}}}' http://localhost:8080
+curl -i -H "Content-Type: application/json" -X POST -d '{"client":{"ID":5,"Position":{"lat":2,"lon":16}}}' http://localhost:8080
 ```
