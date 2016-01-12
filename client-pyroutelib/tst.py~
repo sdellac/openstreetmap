@@ -1,0 +1,5 @@
+list = []
+
+list.append(2454,545)
+
+print list[0]
