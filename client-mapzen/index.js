@@ -57,8 +57,8 @@ var sync = function() {
         .post('http://127.0.0.1:1337/' + server + '/')
         .send({
             client: {
-                id: "YOLO",
-                position: {
+                ID: "mapzen-78az5ez",
+                Position: {
                     lat: coords[0],
                     lon: coords[1]
                 }
